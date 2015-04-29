@@ -170,8 +170,8 @@ function bp(state)
     local y = state.data[state.pos + 1]
     local s = model.s[i - 1]
     local derr = transfer_data(torch.ones(1))
-    local tmp = model.rnns[i]:backward({x, y, s},
-      {derr, model.ds, transfer_data(torch.zeros(params.batch_size, params.vocab_size))})[3]
+    local perr = transfer_data(torch.zeros(params.batch_size, params.vocab_size))
+    local tmp = model.rnns[i]:backward({x, y, s},{derr, model.ds, perr})[3]
     g_replace_table(model.ds, tmp)
     cutorch.synchronize()
   end
