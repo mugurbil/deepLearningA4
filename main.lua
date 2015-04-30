@@ -51,8 +51,8 @@ local params = {batch_size=20,
                 lr=1,
                 vocab_size=50,
                 max_epoch=4,
-                max_max_epoch=13,
-                max_grad_norm=10}
+                max_max_epoch=1,
+                max_grad_norm=4}
 
 function transfer_data(x)
   return x:cuda()
@@ -265,7 +265,6 @@ while epoch < params.max_max_epoch do
    cutorch.synchronize()
    collectgarbage()
  end
- torch.save("model_cha.net",model.core_network,'ascii')
 end
 -- run_test()
 print("Training is over.")
